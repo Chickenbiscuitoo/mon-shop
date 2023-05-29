@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 interface MonCardProps {
 	name: string
 	url: string
@@ -39,7 +41,7 @@ async function MonCard({ name, url }: MonCardProps) {
 	}
 
 	return (
-		<div className="card glass place-items-center border-solid border-[#E0E0E0] cursor-pointer">
+		<div className="card glass place-items-center border-solid border-[#E0E0E0]">
 			<figure>
 				<img
 					src={mon.sprites.front_default}
@@ -49,10 +51,12 @@ async function MonCard({ name, url }: MonCardProps) {
 				/>
 			</figure>
 			<div className="card-body">
-				<h2 className="card-title">
-					{name.toUpperCase()}
-					<div className="badge badge-ghost">#{mon.id}</div>
-				</h2>
+				<Link href="/">
+					<h2 className="card-title">
+						{name.toUpperCase()}
+						<div className="badge badge-ghost">#{mon.id}</div>
+					</h2>
+				</Link>
 				<div className="card-actions justify-center">
 					{monTypes.map((type: string) => (
 						<div
