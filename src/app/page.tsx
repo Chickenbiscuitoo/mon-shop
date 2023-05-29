@@ -11,7 +11,7 @@ async function Home() {
 	const mons = await getMons()
 
 	return (
-		<div className="bg-red-200 grid grid-cols-4 w-full">
+		<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-5 p-10">
 			{mons.results.map((mon: any) => (
 				/* @ts-expect-error Async Server Component */
 				<MonCard name={mon.name} url={mon.url} />
