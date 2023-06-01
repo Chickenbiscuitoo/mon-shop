@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 interface SetProps {
 	id: string
 	name: string
@@ -26,9 +28,11 @@ function Set({
 			</figure>
 			<div className="card-body h-1/3">
 				<span>
-					<h2 className="card-title inline text-2xl font-extrabold">
-						{name}
-					</h2>
+					<Link href={`/sets/${id}`}>
+						<h2 className="card-title inline text-2xl font-extrabold">
+							{name}
+						</h2>
+					</Link>
 					<h5 className="font-light">Released {releaseDate}</h5>
 				</span>
 			</div>
