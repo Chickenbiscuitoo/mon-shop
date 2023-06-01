@@ -21,7 +21,7 @@ async function setsPage() {
 
 	return (
 		<div>
-			{series.map((serie: string) => (
+			{series.sort().map((serie: string) => (
 				<Serie
 					key={serie}
 					name={serie}
