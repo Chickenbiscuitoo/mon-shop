@@ -9,7 +9,7 @@ const Footer = () => {
 				rel="noopener noreferrer"
 				className="text-neutral"
 			>
-				<span>
+				<span className="text-base-content">
 					Chickenbiscuitoo
 					<FaGithub className="inline ml-1" />
 				</span>
