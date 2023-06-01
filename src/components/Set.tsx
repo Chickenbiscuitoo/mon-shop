@@ -18,7 +18,7 @@ function Set({
 	logoUrl,
 }: SetProps) {
 	return (
-		<div className="card card-compact max-h-80 bg-base-100 shadow-lg p-5 hover:scale-110 duration-300 hover:z-50 hover:cursor-pointer">
+		<div className="card card-compact max-h-80 bg-base-100 shadow-lg p-5 hover:scale-110 duration-300 hover:z-50">
 			<figure className="h-2/3">
 				<img
 					src={logoUrl}
@@ -29,7 +29,7 @@ function Set({
 			<div className="card-body h-1/3">
 				<span>
 					<Link href={`/sets/${id}`}>
-						<h2 className="card-title inline text-2xl font-extrabold">
+						<h2 className="card-title inline text-2xl font-extrabold hover:cursor-pointer">
 							{name}
 						</h2>
 					</Link>
