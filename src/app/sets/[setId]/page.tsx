@@ -14,9 +14,18 @@ async function getSet(setId: string) {
 async function SetPage({ params: { setId } }: Params) {
 	const set = await getSet(setId)
 
-	console.log(set)
-
-	return <div>{setId}</div>
+	return (
+		<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 p-10">
+			{set.data.map((card: any) => (
+				<div
+					key={card.id}
+					className="hover:cursor-pointer hover:scale-110 duration-300"
+				>
+					<img src={card.images.small} alt={card.name} />
+				</div>
+			))}
+		</div>
+	)
 }
 
 export default SetPage
