@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 type Params = {
 	params: {
 		cardId: string
@@ -45,16 +47,18 @@ async function CardPage({ params: { cardId } }: Params) {
 					</div>
 					<div className="flex flex-col">
 						<div className="flex">
-							<h4 className="inline text-lg font-semibold">
-								{card.data?.set?.name.toUpperCase()}
-							</h4>
-							<img
-								src={card.data?.set?.images?.symbol}
-								alt={card.data?.set?.name}
-								width="25"
-								height="25"
-								className="inline w-[25px] h-[25px]"
-							/>
+							<Link href={`/sets/${card.data.set.id}`}>
+								<h4 className="inline text-lg font-semibold">
+									{card.data?.set?.name.toUpperCase()}
+								</h4>
+								<img
+									src={card.data?.set?.images?.symbol}
+									alt={card.data?.set?.name}
+									width="25"
+									height="25"
+									className="inline w-[25px] h-[25px]"
+								/>
+							</Link>
 						</div>
 						<div>
 							<h4
