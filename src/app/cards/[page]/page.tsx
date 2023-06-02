@@ -41,7 +41,7 @@ async function CardsPage({ params: { page } }: Params) {
 				</div>
 			) : (
 				<div className="flex flex-col place-content-center place-items-center place-self-center w-full gap-2 m-2">
-					<h1 className="text-2xl font-bold">
+					<h1 className="text-2xl font-bold text-[#5098a8]">
 						No more cards to show
 					</h1>
 					<img
