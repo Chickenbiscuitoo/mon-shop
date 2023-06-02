@@ -23,7 +23,7 @@ async function SetPage({ params: { setId } }: Params) {
 					key={card.id}
 					className="hover:cursor-pointer hover:scale-110 duration-300"
 				>
-					<Link href={`/cards/${card.id}`}>
+					<Link href={`/card/${card.id}`}>
 						<img src={card.images.small} alt={card.name} />
 					</Link>
 				</div>
