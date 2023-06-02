@@ -18,7 +18,6 @@ async function getCard(cardId: string) {
 async function CardPage({ params: { cardId } }: Params) {
 	const card = await getCard(cardId)
 
-	// card rarity in text color in hex
 	const cardRarity: cardRarity = {
 		Common: '#1eff00',
 		Uncommon: '#0070dd',
@@ -282,11 +281,13 @@ async function CardPage({ params: { cardId } }: Params) {
 						)}
 					</div>
 				)}
-				<div className="mt-10">
-					<p className="italic font-bold">
-						"{card.data?.flavorText}"
-					</p>
-				</div>
+				{card.data?.flavorText && (
+					<div className="mt-10">
+						<p className="italic font-bold">
+							"{card.data?.flavorText}"
+						</p>
+					</div>
+				)}
 			</div>
 		</div>
 	)
