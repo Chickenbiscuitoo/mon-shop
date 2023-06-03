@@ -15,7 +15,7 @@ const Header = () => {
 					/>
 					<span
 						className="self-center text-3xl font-semibold whitespace-nowrap bg-gradient-to-r bg-clip-text text-transparent 
-            from-[#5098a8] via-primary to-[#5098a8]
+            from-[#4070b8] via-primary to-[#285880]
             animate-text"
 					>
 						monShop
