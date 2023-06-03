@@ -1,4 +1,5 @@
 import SearchBar from '@/components/SearchBar'
+import CardsDisplay from '@/components/CardsDisplay'
 
 function Home() {
 	return (
@@ -21,6 +22,11 @@ function Home() {
 				The Ultimate Pokémon Card Database
 			</p>
 			<SearchBar />
+
+			<div className="flex place-items-center place-content-center overflow-hidden">
+				{/* @ts-expect-error Async Server Component */}
+				<CardsDisplay />
+			</div>
 		</div>
 	)
 }
