@@ -9,7 +9,8 @@ type Params = {
 		page: string
 	}
 	searchParams: {
-		name: string
+		name?: string
+		rarity?: string
 	}
 }
 
@@ -18,23 +19,31 @@ const silkscreen = Silkscreen({ subsets: ['latin'], weight: '400' })
 async function getSearched(
 	page: number = 1,
 	pageSize: number = 250,
-	name: string
+	name?: string,
+	rarity?: string
 ) {
-	const res = await fetch(
-		`https://api.pokemontcg.io/v2/cards?page=${page}&pageSize=${pageSize}&q=name:${name}*`
-	)
-	return res.json()
+	if (name) {
+		const res = await fetch(
+			`https://api.pokemontcg.io/v2/cards?page=${page}&pageSize=${pageSize}&q=name:${name}*`
+		)
+		return res.json()
+	} else if (rarity) {
+		const res = await fetch(
+			`https://api.pokemontcg.io/v2/cards?page=${page}&pageSize=${pageSize}&q=rarity:"${rarity}"`
+		)
+		return res.json()
+	}
 }
 
 async function SearchPage({
 	params: { page },
-	searchParams: { name },
+	searchParams: { name, rarity },
 }: Params) {
-	const cards = await getSearched(Number(page), 60, name)
+	const cards = await getSearched(Number(page), 60, name, rarity)
 
 	return (
 		<>
-			{cards.count > 0 ? (
+			{cards?.count > 0 ? (
 				<div className="flex flex-col">
 					<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 p-10">
 						{cards.data.map((card: any) => (

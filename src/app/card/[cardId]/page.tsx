@@ -67,26 +67,51 @@ async function CardPage({ params: { cardId } }: Params) {
 						</div>
 						<div>
 							{cardRarity === 'Common' && (
-								<h4
-									className={`text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent from-lime-300 to-emerald-800 animate-text`}
+								<Link
+									href={`/search/1?rarity=${card?.rarity}`}
 								>
-									{card?.rarity?.toUpperCase()}
-								</h4>
+									<h4
+										className={`text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent from-lime-300 to-emerald-800 animate-text`}
+									>
+										{card?.rarity?.toUpperCase()}
+									</h4>
+								</Link>
 							)}
 							{cardRarity === 'Uncommon' && (
-								<h4
-									className={`text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent from-cyan-300 to-blue-800 animate-text`}
+								<Link
+									href={`/search/1?rarity=${card?.rarity}`}
 								>
-									{card?.rarity?.toUpperCase()}
-								</h4>
+									<h4
+										className={`text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent from-cyan-300 to-blue-800 animate-text`}
+									>
+										{card?.rarity?.toUpperCase()}
+									</h4>
+								</Link>
 							)}
 							{cardRarity === 'Rare' && (
-								<h4
-									className={`text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent from-indigo-300 to-purple-800 animate-text`}
+								<Link
+									href={`/search/1?rarity=${card?.rarity}`}
 								>
-									{card?.rarity?.toUpperCase()}
-								</h4>
+									<h4
+										className={`text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent from-indigo-300 to-purple-800 animate-text`}
+									>
+										{card?.rarity?.toUpperCase()}
+									</h4>
+								</Link>
 							)}
+							{cardRarity !== 'Common' &&
+								cardRarity !== 'Uncommon' &&
+								cardRarity !== 'Rare' && (
+									<Link
+										href={`/search/1?rarity=${card?.rarity}`}
+									>
+										<h4
+											className={`text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent from-amber-300 to-yellow-800 animate-text`}
+										>
+											{card?.rarity?.toUpperCase()}
+										</h4>
+									</Link>
+								)}
 						</div>
 					</div>
 				</div>
