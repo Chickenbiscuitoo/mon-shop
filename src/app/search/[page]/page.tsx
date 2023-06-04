@@ -29,7 +29,7 @@ async function getSearched(
 		return res.json()
 	} else if (rarity) {
 		const res = await fetch(
-			`https://api.pokemontcg.io/v2/cards?page=${page}&pageSize=${pageSize}&q=rarity:"${rarity}"`
+			`https://api.pokemontcg.io/v2/cards?page=${page}&pageSize=${pageSize}&q=!rarity:"${rarity}"`
 		)
 		return res.json()
 	}
