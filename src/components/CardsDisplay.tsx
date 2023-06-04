@@ -1,6 +1,10 @@
+import getRandomInteger from '../../utils/getRandomInteger'
+
 async function getCards(num: number) {
+	const randomPage = getRandomInteger(1, 250)
+
 	const res = await fetch(
-		`https://api.pokemontcg.io/v2/cards?pageSize=${num}`
+		`https://api.pokemontcg.io/v2/cards?page=${randomPage}&pageSize=${num}&q=supertype:pokemon`
 	)
 	return res.json()
 }
