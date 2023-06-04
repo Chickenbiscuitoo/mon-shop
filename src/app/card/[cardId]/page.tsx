@@ -111,19 +111,23 @@ async function CardPage({ params: { cardId } }: Params) {
 								<tr className="text-center">
 									<td className="text-red-400">
 										$
-										{
-											card?.cardmarket?.prices
-												?.trendPrice
-										}
+										{card?.cardmarket?.prices
+											?.trendPrice || 0}
 									</td>
 									<td className="text-green-400">
-										${card?.cardmarket?.prices?.avg1}
+										$
+										{card?.cardmarket?.prices?.avg1 ||
+											0}
 									</td>
 									<td className="text-blue-400">
-										${card?.cardmarket?.prices?.avg7}
+										$
+										{card?.cardmarket?.prices?.avg7 ||
+											0}
 									</td>
 									<td className="text-purple-400">
-										${card?.cardmarket?.prices?.avg30}
+										$
+										{card?.cardmarket?.prices?.avg30 ||
+											0}
 									</td>
 								</tr>
 							</thead>
@@ -202,35 +206,27 @@ async function CardPage({ params: { cardId } }: Params) {
 									<tr className="text-center">
 										<td className="text-red-400">
 											$
-											{
-												card?.tcgplayer?.prices[
-													keyName
-												]?.market
-											}
+											{card?.tcgplayer?.prices[
+												keyName
+											]?.market || 0}
 										</td>
 										<td className="text-green-400">
 											$
-											{
-												card?.tcgplayer?.prices[
-													keyName
-												]?.low
-											}
+											{card?.tcgplayer?.prices[
+												keyName
+											]?.low || 0}
 										</td>
 										<td className="text-blue-400">
 											$
-											{
-												card?.tcgplayer?.prices[
-													keyName
-												]?.mid
-											}
+											{card?.tcgplayer?.prices[
+												keyName
+											]?.mid || 0}
 										</td>
 										<td className="text-purple-400">
 											$
-											{
-												card?.tcgplayer?.prices[
-													keyName
-												]?.high
-											}
+											{card?.tcgplayer?.prices[
+												keyName
+											]?.high || 0}
 										</td>
 									</tr>
 								</tbody>
