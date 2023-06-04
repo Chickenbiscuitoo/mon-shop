@@ -1,9 +1,26 @@
+import type { PokemonCard } from '../../../../types/monCard'
+
 import Link from 'next/link'
 
 type Params = {
 	params: {
 		cardId: string
 	}
+}
+
+type PriceInfo = {
+	low: number
+	mid: number
+	high: number
+	market: number
+}
+
+type Prices = {
+	normal?: PriceInfo
+	holofoil?: PriceInfo
+	reverseHolofoil?: PriceInfo
+	'1stEditionHolofoil'?: PriceInfo
+	'1stEditionNormal'?: PriceInfo
 }
 
 interface cardRarity {
@@ -16,7 +33,9 @@ async function getCard(cardId: string) {
 }
 
 async function CardPage({ params: { cardId } }: Params) {
-	const card = await getCard(cardId)
+	const cardData = await getCard(cardId)
+
+	const card: PokemonCard = cardData.data
 
 	const cardRarity: cardRarity = {
 		Common: '#1eff00',
@@ -24,35 +43,32 @@ async function CardPage({ params: { cardId } }: Params) {
 		Rare: '#a335ee',
 	}
 
-	console.log(card.data)
+	console.log(card?.tcgplayer?.prices)
 
 	return (
 		<div className="flex p-14 gap-14">
 			<div className="w-1/3">
-				<img
-					src={card.data?.images?.large}
-					alt={card.data?.name}
-				/>
+				<img src={card?.images?.large} alt={card?.name} />
 			</div>
 			<div className="w-2/3">
 				<div className="flex flex-row border-b-2 border-b-base-content">
 					<div className="flex flex-col flex-1">
 						<h1 className="font-bold text-4xl">
-							{card.data?.name}
+							{card?.name}
 						</h1>
 						<h4 className="font-extralight text-lg">
-							{card.data?.supertype} - {card.data?.subtypes}
+							{card?.supertype} - {card?.subtypes}
 						</h4>
 					</div>
 					<div className="flex flex-col">
 						<div className="flex">
-							<Link href={`/sets/${card.data.set.id}`}>
+							<Link href={`/sets/${card.set.id}`}>
 								<h4 className="inline text-lg font-semibold">
-									{card.data?.set?.name.toUpperCase()}
+									{card?.set?.name.toUpperCase()}
 								</h4>
 								<img
-									src={card.data?.set?.images?.symbol}
-									alt={card.data?.set?.name}
+									src={card?.set?.images?.symbol}
+									alt={card?.set?.name}
 									width="25"
 									height="25"
 									className="inline w-[25px] h-[25px]"
@@ -64,24 +80,23 @@ async function CardPage({ params: { cardId } }: Params) {
 								className="text-lg font-semibold"
 								style={{
 									color: cardRarity[
-										card.data?.rarity?.split(' ')[0]
+										card?.rarity?.split(' ')[0]
 									],
 								}}
 							>
-								{card.data?.rarity?.toUpperCase()}
+								{card?.rarity?.toUpperCase()}
 							</h4>
 						</div>
 					</div>
 				</div>
-				{card.data?.cardmarket?.prices && (
+				{card?.cardmarket?.prices && (
 					<div className="flex flex-col mt-2">
 						<span>
 							<h4 className="text-2xl font-semibold">
 								Card Market Prices
 							</h4>
 							<h6 className="font-extralight text-xs">
-								Last Updated{' '}
-								{card.data?.cardmarket?.updatedAt}
+								Last Updated {card?.cardmarket?.updatedAt}
 							</h6>
 						</span>
 						<table className="table-fixed my-5" width={350}>
@@ -96,195 +111,137 @@ async function CardPage({ params: { cardId } }: Params) {
 									<td className="text-red-400">
 										$
 										{
-											card.data?.cardmarket?.prices
+											card?.cardmarket?.prices
 												?.trendPrice
 										}
 									</td>
 									<td className="text-green-400">
-										$
-										{
-											card.data?.cardmarket?.prices
-												?.avg1
-										}
+										${card?.cardmarket?.prices?.avg1}
 									</td>
 									<td className="text-blue-400">
-										$
-										{
-											card.data?.cardmarket?.prices
-												?.avg7
-										}
+										${card?.cardmarket?.prices?.avg7}
 									</td>
 									<td className="text-purple-400">
-										$
-										{
-											card.data?.cardmarket?.prices
-												?.avg30
-										}
+										${card?.cardmarket?.prices?.avg30}
 									</td>
 								</tr>
 							</thead>
 						</table>
 					</div>
 				)}
-				{card.data?.tcgplayer?.prices && (
+				{card?.tcgplayer?.prices && (
 					<div className="flex flex-col mt-2">
 						<span>
 							<h4 className="text-2xl font-semibold">
 								TCGplayer Prices
 							</h4>
 							<h6 className="font-extralight text-xs">
-								Last Updated{' '}
-								{card.data?.tcgplayer?.updatedAt}
+								Last Updated {card?.tcgplayer?.updatedAt}
 							</h6>
 						</span>
-						{card.data?.tcgplayer?.prices?.normal && (
+						{(
+							Object.keys(card?.tcgplayer?.prices) as Array<
+								keyof Prices
+							>
+						).map((keyName: keyof Prices, i) => (
 							<table
 								className="table-fixed mt-5"
-								width={350}
+								width={600}
+								key={i}
 							>
 								<thead>
 									<tr>
-										<th>Normal Market</th>
-										<th>Normal Low</th>
-										<th>Normal Mid</th>
-										<th>Normal High</th>
+										<th>
+											{keyName
+												.replace(
+													/([a-z](?=[A-Z]))/g,
+													'$1 '
+												)
+												.toUpperCase()}{' '}
+											<span className="font-bold underline">
+												Market
+											</span>
+										</th>
+										<th>
+											{keyName
+												.replace(
+													/([a-z](?=[A-Z]))/g,
+													'$1 '
+												)
+												.toUpperCase()}{' '}
+											<span className="font-bold underline">
+												Low
+											</span>
+										</th>
+										<th>
+											{keyName
+												.replace(
+													/([a-z](?=[A-Z]))/g,
+													'$1 '
+												)
+												.toUpperCase()}{' '}
+											<span className="font-bold underline">
+												Mid
+											</span>
+										</th>
+										<th>
+											{keyName
+												.replace(
+													/([a-z](?=[A-Z]))/g,
+													'$1 '
+												)
+												.toUpperCase()}{' '}
+											<span className="font-bold underline">
+												High
+											</span>
+										</th>
 									</tr>
+								</thead>
+								<tbody>
 									<tr className="text-center">
 										<td className="text-red-400">
 											$
 											{
-												card.data?.tcgplayer
-													?.prices?.normal
-													?.market
+												card?.tcgplayer?.prices[
+													keyName
+												]?.market
 											}
 										</td>
 										<td className="text-green-400">
 											$
 											{
-												card.data?.tcgplayer
-													?.prices?.normal?.low
+												card?.tcgplayer?.prices[
+													keyName
+												]?.low
 											}
 										</td>
 										<td className="text-blue-400">
 											$
 											{
-												card.data?.tcgplayer
-													?.prices?.normal?.mid
+												card?.tcgplayer?.prices[
+													keyName
+												]?.mid
 											}
 										</td>
 										<td className="text-purple-400">
 											$
 											{
-												card.data?.tcgplayer
-													?.prices?.normal?.high
+												card?.tcgplayer?.prices[
+													keyName
+												]?.high
 											}
 										</td>
 									</tr>
-								</thead>
+								</tbody>
 							</table>
-						)}
-						{card.data?.tcgplayer?.prices?.holofoil && (
-							<table
-								className="table-fixed mt-5"
-								width={350}
-							>
-								<thead>
-									<tr>
-										<th>Holofoil Market</th>
-										<th>Holofoil Low</th>
-										<th>Holofoil Mid</th>
-										<th>Holofoil High</th>
-									</tr>
-									<tr className="text-center">
-										<td className="text-red-400">
-											$
-											{
-												card.data?.tcgplayer
-													?.prices?.holofoil
-													.market
-											}
-										</td>
-										<td className="text-green-400">
-											$
-											{
-												card.data?.tcgplayer
-													?.prices?.holofoil.low
-											}
-										</td>
-										<td className="text-blue-400">
-											$
-											{
-												card.data?.tcgplayer
-													?.prices?.holofoil.mid
-											}
-										</td>
-										<td className="text-purple-400">
-											$
-											{
-												card.data?.tcgplayer
-													?.prices?.holofoil.high
-											}
-										</td>
-									</tr>
-								</thead>
-							</table>
-						)}
-						{card.data?.tcgplayer?.prices?.reverseHolofoil && (
-							<table
-								className="table-fixed mt-5"
-								width={350}
-							>
-								<thead>
-									<tr>
-										<th>Reverse Holofoil Market</th>
-										<th>Reverse Holofoil Low</th>
-										<th>Reverse Holofoil Mid</th>
-										<th>Reverse Holofoil High</th>
-									</tr>
-									<tr className="text-center">
-										<td className="text-red-400">
-											$
-											{
-												card.data?.tcgplayer
-													?.prices
-													?.reverseHolofoil
-													.market
-											}
-										</td>
-										<td className="text-green-400">
-											$
-											{
-												card.data?.tcgplayer
-													?.prices
-													?.reverseHolofoil.low
-											}
-										</td>
-										<td className="text-blue-400">
-											$
-											{
-												card.data?.tcgplayer
-													?.prices
-													?.reverseHolofoil.mid
-											}
-										</td>
-										<td className="text-purple-400">
-											$
-											{
-												card.data?.tcgplayer
-													?.prices
-													?.reverseHolofoil.high
-											}
-										</td>
-									</tr>
-								</thead>
-							</table>
-						)}
+						))}
 					</div>
 				)}
-				{card.data?.flavorText && (
+
+				{card?.flavorText && (
 					<div className="mt-10">
 						<p className="italic font-bold">
-							"{card.data?.flavorText}"
+							"{card?.flavorText}"
 						</p>
 					</div>
 				)}
