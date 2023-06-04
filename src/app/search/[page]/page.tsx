@@ -17,7 +17,7 @@ async function getSearched(
 	name: string
 ) {
 	const res = await fetch(
-		`https://api.pokemontcg.io/v2/cards?page=${page}&pageSize=${pageSize}&q=name:${name}`
+		`https://api.pokemontcg.io/v2/cards?page=${page}&pageSize=${pageSize}&q=name:${name}*`
 	)
 	return res.json()
 }
