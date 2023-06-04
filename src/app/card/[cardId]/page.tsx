@@ -23,10 +23,6 @@ type Prices = {
 	'1stEditionNormal'?: PriceInfo
 }
 
-interface cardRarity {
-	[key: string]: string
-}
-
 async function getCard(cardId: string) {
 	const res = await fetch(`https://api.pokemontcg.io/v2/cards/${cardId}`)
 	return res.json()
@@ -37,13 +33,7 @@ async function CardPage({ params: { cardId } }: Params) {
 
 	const card: PokemonCard = cardData.data
 
-	const cardRarity: cardRarity = {
-		Common: '#1eff00',
-		Uncommon: '#0070dd',
-		Rare: '#a335ee',
-	}
-
-	console.log(card?.tcgplayer?.prices)
+	const cardRarity: string = card?.rarity?.split(' ')[0]
 
 	return (
 		<div className="flex p-14 gap-14">
@@ -76,16 +66,27 @@ async function CardPage({ params: { cardId } }: Params) {
 							</Link>
 						</div>
 						<div>
-							<h4
-								className="text-lg font-semibold"
-								style={{
-									color: cardRarity[
-										card?.rarity?.split(' ')[0]
-									],
-								}}
-							>
-								{card?.rarity?.toUpperCase()}
-							</h4>
+							{cardRarity === 'Common' && (
+								<h4
+									className={`text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent from-lime-300 to-emerald-800 animate-text`}
+								>
+									{card?.rarity?.toUpperCase()}
+								</h4>
+							)}
+							{cardRarity === 'Uncommon' && (
+								<h4
+									className={`text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent from-cyan-300 to-blue-800 animate-text`}
+								>
+									{card?.rarity?.toUpperCase()}
+								</h4>
+							)}
+							{cardRarity === 'Rare' && (
+								<h4
+									className={`text-lg font-semibold bg-gradient-to-r bg-clip-text text-transparent from-indigo-300 to-purple-800 animate-text`}
+								>
+									{card?.rarity?.toUpperCase()}
+								</h4>
+							)}
 						</div>
 					</div>
 				</div>
