@@ -18,7 +18,7 @@ function Set({
 	logoUrl,
 }: SetProps) {
 	return (
-		<div className="card card-compact max-h-80 bg-base-100 shadow-lg p-5 hover:scale-110 duration-300 hover:z-50">
+		<div className="border-2 border-base-content card card-compact max-h-80 bg-base-100 shadow-lg p-5 hover:scale-110 duration-300 hover:z-50">
 			<figure className="h-2/3">
 				<img
 					src={logoUrl}

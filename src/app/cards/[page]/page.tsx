@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { Silkscreen } from 'next/font/google'
+
 import Pagination from '@/components/Pagination'
 
 type Params = {
@@ -7,6 +9,8 @@ type Params = {
 		page: string
 	}
 }
+
+const silkscreen = Silkscreen({ subsets: ['latin'], weight: '400' })
 
 async function getCards(page: number = 1, pageSize: number = 250) {
 	const res = await fetch(
@@ -41,11 +45,13 @@ async function CardsPage({ params: { page } }: Params) {
 				</div>
 			) : (
 				<div className="flex flex-col place-content-center place-items-center place-self-center w-full gap-2 m-2">
-					<h1 className="text-2xl font-bold text-[#5098a8]">
-						No more cards to show
-					</h1>
+					<div className={silkscreen.className}>
+						<h1 className="text-5xl font-bold text-[#315a7b] drop-shadow-[0_1.2px_1.2px_rgba(82, 140, 173, 1)]">
+							No more cards to show
+						</h1>
+					</div>
 					<img
-						src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTdlMDg5NThhNjhkODYwMmRmY2MzOWUxZmE2M2NjZGUxMGZhYmY1MCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/11nEYzFwkwDWuc/giphy.gif"
+						src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmM2NzFkMGZlZGM3N2IwZmQyZDQ4Yjc2OGE0YTc3NGRhMDY0MzZmZCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/n2ytlxNQLodGM/giphy.gif"
 						alt="snorlax"
 						width="300"
 						height="300"

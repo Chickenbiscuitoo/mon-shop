@@ -1,15 +1,12 @@
 import Link from 'next/link'
 
-import snorlaxGIF from 'public/images/snorlax.gif'
-import snorlaxPNG from 'public/images/snorlax.png'
-
 const Header = () => {
 	return (
 		<header className="bg-neutral flex px-10 py-3 place-content-center place-items-center">
 			<Link href="/">
 				<div className="flex">
 					<img
-						src={snorlaxPNG.src}
+						src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmM2NzFkMGZlZGM3N2IwZmQyZDQ4Yjc2OGE0YTc3NGRhMDY0MzZmZCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/n2ytlxNQLodGM/giphy.gif"
 						className="mr-3 h-6 sm:h-9"
 						alt="snorlax"
 					/>
