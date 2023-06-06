@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-type searchParams = {
+type SearchParams = {
 	name?: string
 	superTypes?: string[]
 	subTypes?: string[]
@@ -30,6 +30,8 @@ type searchParams = {
 	}
 	artist?: string
 	rarities?: string[]
+
+	[key: string]: any // Index signature allowing string keys
 }
 
 function advancedSearchPage() {
@@ -71,27 +73,17 @@ function advancedSearchPage() {
 		'Promo',
 	]
 	const series = [
-		'Base',
-		'Jungle',
-		'Fossil',
-		'Base2',
-		'Rocket',
-		'Gym',
-		'Neo',
-		'e-Card',
-		'EX',
-		'POP',
-		'Diamond & Pearl',
-		'Platinum',
-		'HeartGold & SoulSilver',
-		'Call of Legends',
-		'Black & White',
-		'XY',
-		'Sun & Moon',
-		'Sword & Shield',
-		'Promo',
+		'Shrek',
+		'Fiona',
+		'Donkey',
+		'Lord Farquaad',
+		'Puss in Boots',
+		'Gingerbread Man',
+		'Dragon',
+		'Fairy Godmother',
+		'Pinocchio',
+		'King Harold',
 	]
-
 	const rarities = [
 		'Common',
 		'Uncommon',
@@ -113,16 +105,13 @@ function advancedSearchPage() {
 		'Rare Holo GX',
 		'Rare Holo V',
 		'Rare Holo VMAX',
-		'Rare Holo LV.X',
 		'Rare ACE Spec',
-		'Rare BREAK',
 		'Rare BREAK Holo',
 		'Rare Prism Star',
 		'Rare Prism Star Holo',
-		'Rare Secret',
 	]
 
-	const [searchParams, setSearchParams] = useState<searchParams>({
+	const [searchParams, setSearchParams] = useState<SearchParams>({
 		name: '',
 		superTypes: [],
 		subTypes: [],
@@ -152,15 +141,73 @@ function advancedSearchPage() {
 		rarities: [],
 	})
 
+	function textInputHandler(e: React.ChangeEvent<HTMLInputElement>) {
+		const { name, value } = e.target
+
+		setSearchParams({
+			...searchParams,
+			[name]: value,
+		})
+	}
+
+	function numberRangeInputHandler(
+		e: React.ChangeEvent<HTMLInputElement>
+	) {
+		const { name, id, value } = e.target
+
+		setSearchParams((prevSearchParams) => ({
+			...prevSearchParams,
+			[name]: {
+				...(prevSearchParams[name] as Record<string, unknown>),
+				[id]: parseInt(value),
+			},
+		}))
+	}
+
+	function checkboxInputHandler(e: React.ChangeEvent<HTMLInputElement>) {
+		const { name, id, checked } = e.target
+
+		setSearchParams((prevSearchParams) => {
+			const updatedValue = checked
+				? [...(prevSearchParams[name] || []), id]
+				: prevSearchParams[name].filter(
+						(item: string) => item !== id
+				  )
+
+			return {
+				...prevSearchParams,
+				[name]: updatedValue,
+			}
+		})
+	}
+
+	function dropdownInputHandler(
+		e: React.ChangeEvent<HTMLSelectElement>
+	) {
+		const { name, id, value } = e.target
+
+		setSearchParams({
+			...searchParams,
+			[name]: {
+				...(searchParams[name] as Record<string, unknown>),
+				[id]: value === 'Legal/Banned' ? undefined : value,
+			},
+		})
+
+		console.log(searchParams.legalities)
+	}
+
 	return (
-		<div className="flex flex-col w-full h-full justify-center align-top px-64">
+		<form className="flex flex-col w-full h-full justify-center align-top px-64">
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
 				<h6 className="text-xl w-2/12">Card Name</h6>
 				<input
 					type="text"
+					name="name"
 					placeholder="Card Name"
 					className="input border-2 border-[#686f7c] w-10/12"
 					value={searchParams.name}
+					onChange={textInputHandler}
 				/>
 			</div>
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
@@ -169,10 +216,13 @@ function advancedSearchPage() {
 					<div className="form-control w-1/4 flex flex-row place-items-center">
 						<input
 							type="checkbox"
+							name="superTypes"
+							id="Energy"
 							className="toggle toggle-primary mr-2"
 							checked={searchParams.superTypes?.includes(
 								'Energy'
 							)}
+							onChange={checkboxInputHandler}
 						/>
 						<label className="cursor-pointer label">
 							<span className="label-text">Energy</span>
@@ -182,10 +232,13 @@ function advancedSearchPage() {
 					<div className="form-control w-1/4 flex flex-row place-items-center">
 						<input
 							type="checkbox"
+							name="superTypes"
+							id="Pokémon"
 							className="toggle toggle-primary mr-2"
 							checked={searchParams.superTypes?.includes(
 								'Pokémon'
 							)}
+							onChange={checkboxInputHandler}
 						/>
 						<label className="cursor-pointer label">
 							<span className="label-text">Pokémon</span>
@@ -195,10 +248,13 @@ function advancedSearchPage() {
 					<div className="form-control w-1/4 flex flex-row place-items-center">
 						<input
 							type="checkbox"
+							name="superTypes"
+							id="Trainer"
 							className="toggle toggle-primary mr-2"
 							checked={searchParams.superTypes?.includes(
 								'Trainer'
 							)}
+							onChange={checkboxInputHandler}
 						/>
 						<label className="cursor-pointer label">
 							<span className="label-text">Trainer</span>
@@ -217,10 +273,13 @@ function advancedSearchPage() {
 						>
 							<input
 								type="checkbox"
+								name="subTypes"
+								id={subType}
 								className="toggle toggle-primary mr-2"
 								checked={searchParams.subTypes?.includes(
 									subType
 								)}
+								onChange={checkboxInputHandler}
 							/>
 							<label className="cursor-pointer label">
 								<span className="label-text">
@@ -242,10 +301,13 @@ function advancedSearchPage() {
 						>
 							<input
 								type="checkbox"
+								name="types"
+								id={type}
 								className="toggle toggle-primary mr-2"
 								checked={searchParams.types?.includes(
 									type
 								)}
+								onChange={checkboxInputHandler}
 							/>
 							<label className="cursor-pointer label">
 								<span className="label-text">{type}</span>
@@ -260,9 +322,12 @@ function advancedSearchPage() {
 				<div className="w-10/12 join flex flex-row">
 					<input
 						type="number"
+						name="hp"
+						id="min"
 						placeholder="Low End"
 						className="join-item input rounded-l-lg rounded-r-none border-2 border-l-[#686f7c] border-[#686f7c] border-r-0"
 						value={searchParams.hp?.min}
+						onChange={numberRangeInputHandler}
 					/>
 					<span className="join-item text-xl px-4 bg-neutral flex justify-center items-center border-2 border-[#686f7c]">
 						<h6>TO</h6>
@@ -270,9 +335,12 @@ function advancedSearchPage() {
 
 					<input
 						type="number"
+						name="hp"
+						id="max"
 						placeholder="High End"
 						className="join-item input rounded-r-lg rounded-l-none border-2 border-r-[#686f7c] border-[#686f7c] border-l-0"
-						value={searchParams.hp?.min}
+						value={searchParams.hp?.max}
+						onChange={numberRangeInputHandler}
 					/>
 				</div>
 			</div>
@@ -286,10 +354,13 @@ function advancedSearchPage() {
 						>
 							<input
 								type="checkbox"
+								name="weaknesses"
+								id={type}
 								className="toggle toggle-primary mr-2"
 								checked={searchParams.weaknesses?.includes(
 									type
 								)}
+								onChange={checkboxInputHandler}
 							/>
 							<label className="cursor-pointer label">
 								<span className="label-text">{type}</span>
@@ -309,10 +380,13 @@ function advancedSearchPage() {
 						>
 							<input
 								type="checkbox"
+								name="resistances"
+								id={type}
 								className="toggle toggle-primary mr-2"
 								checked={searchParams.resistances?.includes(
 									type
 								)}
+								onChange={checkboxInputHandler}
 							/>
 							<label className="cursor-pointer label">
 								<span className="label-text">{type}</span>
@@ -353,8 +427,11 @@ function advancedSearchPage() {
 						>
 							<input
 								type="checkbox"
+								name="sets"
+								id={set}
 								className="toggle toggle-primary mr-2"
 								checked={searchParams.sets?.includes(set)}
+								onChange={checkboxInputHandler}
 							/>
 							<label className="cursor-pointer label">
 								<span className="label-text">{set}</span>
@@ -374,10 +451,13 @@ function advancedSearchPage() {
 						>
 							<input
 								type="checkbox"
+								name="series"
+								id={serie}
 								className="toggle toggle-primary mr-2"
 								checked={searchParams.series?.includes(
 									serie
 								)}
+								onChange={checkboxInputHandler}
 							/>
 							<label className="cursor-pointer label">
 								<span className="label-text">{serie}</span>
@@ -394,7 +474,13 @@ function advancedSearchPage() {
 						<label className="label">
 							<span className="label-text">Standard</span>
 						</label>
-						<select className="select select-bordered">
+						<select
+							className="select select-bordered"
+							value={searchParams.legalities?.standard}
+							name="legalities"
+							id="standard"
+							onChange={dropdownInputHandler}
+						>
 							<option selected>Legal/Banned</option>
 							<option>Legal</option>
 							<option>Banned</option>
@@ -404,7 +490,13 @@ function advancedSearchPage() {
 						<label className="label">
 							<span className="label-text">Expanded</span>
 						</label>
-						<select className="select select-bordered">
+						<select
+							className="select select-bordered"
+							value={searchParams.legalities?.expanded}
+							name="legalities"
+							id="expanded"
+							onChange={dropdownInputHandler}
+						>
 							<option selected>Legal/Banned</option>
 							<option>Legal</option>
 							<option>Banned</option>
@@ -414,7 +506,13 @@ function advancedSearchPage() {
 						<label className="label">
 							<span className="label-text">Unlimited</span>
 						</label>
-						<select className="select select-bordered">
+						<select
+							className="select select-bordered"
+							value={searchParams.legalities?.unlimited}
+							name="legalities"
+							id="unlimited"
+							onChange={dropdownInputHandler}
+						>
 							<option selected>Legal/Banned</option>
 							<option>Legal</option>
 							<option>Banned</option>
@@ -427,6 +525,8 @@ function advancedSearchPage() {
 				<div className="w-10/12 join flex flex-row">
 					<input
 						type="number"
+						name="pokedexNumber"
+						id="min"
 						placeholder="Low End"
 						className="join-item input rounded-l-lg rounded-r-none border-2 border-l-[#686f7c] border-[#686f7c] border-r-0"
 						value={searchParams.retreatCost?.min}
@@ -437,6 +537,8 @@ function advancedSearchPage() {
 
 					<input
 						type="number"
+						name="pokedexNumber"
+						id="max"
 						placeholder="High End"
 						className="join-item input rounded-r-lg rounded-l-none border-2 border-r-[#686f7c] border-[#686f7c] border-l-0"
 						value={searchParams.retreatCost?.max}
@@ -447,9 +549,11 @@ function advancedSearchPage() {
 				<h6 className="text-xl w-2/12">Artist</h6>
 				<input
 					type="text"
+					name="artist"
 					placeholder="Card Name"
 					className="input border-2 border-[#686f7c] w-10/12"
 					value={searchParams.artist}
+					onChange={textInputHandler}
 				/>
 			</div>
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
@@ -462,10 +566,13 @@ function advancedSearchPage() {
 						>
 							<input
 								type="checkbox"
+								name="rarities"
+								id={rar}
 								className="toggle toggle-primary mr-2"
 								checked={searchParams.rarities?.includes(
 									rar
 								)}
+								onChange={checkboxInputHandler}
 							/>
 							<label className="cursor-pointer label">
 								<span className="label-text">{rar}</span>
@@ -478,7 +585,7 @@ function advancedSearchPage() {
 			<button className="btn btn-outline btn-success my-5">
 				Search
 			</button>
-		</div>
+		</form>
 	)
 }
 
