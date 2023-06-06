@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 type searchParams = {
 	name?: string
@@ -354,12 +354,33 @@ function advancedSearchPage() {
 							<input
 								type="checkbox"
 								className="toggle toggle-primary mr-2"
-								checked={searchParams.rarities?.includes(
-									set
-								)}
+								checked={searchParams.sets?.includes(set)}
 							/>
 							<label className="cursor-pointer label">
 								<span className="label-text">{set}</span>
+							</label>
+							<div className="flex-grow"></div>
+						</div>
+					))}
+				</div>
+			</div>
+			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
+				<h6 className="text-xl w-2/12">Series</h6>
+				<div className="flex flex-wrap w-10/12">
+					{series.map((serie) => (
+						<div
+							className="form-control w-1/4 flex flex-row place-items-center"
+							key={serie}
+						>
+							<input
+								type="checkbox"
+								className="toggle toggle-primary mr-2"
+								checked={searchParams.series?.includes(
+									serie
+								)}
+							/>
+							<label className="cursor-pointer label">
+								<span className="label-text">{serie}</span>
 							</label>
 							<div className="flex-grow"></div>
 						</div>
