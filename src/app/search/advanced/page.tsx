@@ -141,6 +141,12 @@ function advancedSearchPage() {
 		rarities: [],
 	})
 
+	function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault()
+
+		console.log(searchParams)
+	}
+
 	function textInputHandler(e: React.ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target
 
@@ -193,12 +199,13 @@ function advancedSearchPage() {
 				[id]: value === 'Legal/Banned' ? undefined : value,
 			},
 		})
-
-		console.log(searchParams.legalities)
 	}
 
 	return (
-		<form className="flex flex-col w-full h-full justify-center align-top px-64">
+		<form
+			className="flex flex-col w-full h-full justify-center align-top px-64"
+			onSubmit={onSubmitHandler}
+		>
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
 				<h6 className="text-xl w-2/12">Card Name</h6>
 				<input
@@ -481,7 +488,7 @@ function advancedSearchPage() {
 							id="standard"
 							onChange={dropdownInputHandler}
 						>
-							<option selected>Legal/Banned</option>
+							<option>Legal/Banned</option>
 							<option>Legal</option>
 							<option>Banned</option>
 						</select>
@@ -497,7 +504,7 @@ function advancedSearchPage() {
 							id="expanded"
 							onChange={dropdownInputHandler}
 						>
-							<option selected>Legal/Banned</option>
+							<option>Legal/Banned</option>
 							<option>Legal</option>
 							<option>Banned</option>
 						</select>
@@ -513,7 +520,7 @@ function advancedSearchPage() {
 							id="unlimited"
 							onChange={dropdownInputHandler}
 						>
-							<option selected>Legal/Banned</option>
+							<option>Legal/Banned</option>
 							<option>Legal</option>
 							<option>Banned</option>
 						</select>
@@ -582,7 +589,10 @@ function advancedSearchPage() {
 					))}
 				</div>
 			</div>
-			<button className="btn btn-outline btn-success my-5">
+			<button
+				type="submit"
+				className="btn btn-outline btn-success my-5"
+			>
 				Search
 			</button>
 		</form>
