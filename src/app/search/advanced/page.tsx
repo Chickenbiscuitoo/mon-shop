@@ -592,7 +592,36 @@ function advancedSearchPage() {
 				href={{
 					pathname: '/search/advanced/1',
 					query: {
-						...searchParams,
+						name: searchParams.name || '',
+						types: searchParams.types?.join(',') || '',
+						subtypes: searchParams.subtypes?.join(',') || '',
+						supertypes:
+							searchParams.supertypes?.join(',') || '',
+						hpMin: searchParams.hp?.min || '',
+						hpMax: searchParams.hp?.max || '',
+						attacks: searchParams.attacks?.join(',') || '',
+						weaknesses:
+							searchParams.weaknesses?.join(',') || '',
+						resistances:
+							searchParams.resistances?.join(',') || '',
+						retreatCostMin:
+							searchParams.retreatCost?.min || '',
+						retreatCostMax:
+							searchParams.retreatCost?.max || '',
+						sets: searchParams.sets?.join(',') || '',
+						series: searchParams.series?.join(',') || '',
+						legalitiesStandard:
+							searchParams.legalities?.standard || '',
+						legalitiesExpanded:
+							searchParams.legalities?.expanded || '',
+						legalitiesUnlimited:
+							searchParams.legalities?.unlimited || '',
+						pokedexNumberMin:
+							searchParams.pokedexNumber?.min || '',
+						pokedexNumberMax:
+							searchParams.pokedexNumber?.max || '',
+						artist: searchParams.artist || '',
+						rarities: searchParams.rarities?.join(',') || '',
 					},
 				}}
 				className="w-full"
