@@ -66,19 +66,6 @@ async function getRarities() {
 }
 
 function advancedSearchPageClient() {
-	const series = [
-		'Shrek',
-		'Fiona',
-		'Donkey',
-		'Lord Farquaad',
-		'Puss in Boots',
-		'Gingerbread Man',
-		'Dragon',
-		'Fairy Godmother',
-		'Pinocchio',
-		'King Harold',
-	]
-
 	const [searchParams, setSearchParams] = useState<SearchParams>({})
 
 	const [
@@ -222,85 +209,53 @@ function advancedSearchPageClient() {
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
 				<h6 className="text-xl w-2/12">Supertype</h6>
 				<div className="flex flex-col w-10/12">
-					<div className="form-control w-1/4 flex flex-row place-items-center">
-						<input
-							type="checkbox"
-							name="superTypes"
-							id="Energy"
-							className="toggle toggle-primary mr-2"
-							checked={
-								searchParams.superTypes?.includes(
-									'Energy'
-								) || false
-							}
-							onChange={checkboxInputHandler}
-						/>
-						<label className="cursor-pointer label">
-							<span className="label-text">Energy</span>
-						</label>
-						<div className="flex-grow"></div>
-					</div>
-					<div className="form-control w-1/4 flex flex-row place-items-center">
-						<input
-							type="checkbox"
-							name="superTypes"
-							id="Pokémon"
-							className="toggle toggle-primary mr-2"
-							checked={
-								searchParams.superTypes?.includes(
-									'Pokémon'
-								) || false
-							}
-							onChange={checkboxInputHandler}
-						/>
-						<label className="cursor-pointer label">
-							<span className="label-text">Pokémon</span>
-						</label>
-						<div className="flex-grow"></div>
-					</div>
-					<div className="form-control w-1/4 flex flex-row place-items-center">
-						<input
-							type="checkbox"
-							name="superTypes"
-							id="Trainer"
-							className="toggle toggle-primary mr-2"
-							checked={
-								searchParams.superTypes?.includes(
-									'Trainer'
-								) || false
-							}
-							onChange={checkboxInputHandler}
-						/>
-						<label className="cursor-pointer label">
-							<span className="label-text">Trainer</span>
-						</label>
-						<div className="flex-grow"></div>
-					</div>
-				</div>
-			</div>
-			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
-				<h6 className="text-xl w-2/12">Subtypes</h6>
-				<div className="flex flex-col flex-wrap max-h-32 w-10/12">
-					{subTypesQuery.data.data.map((subType: string) => (
-						<div
-							className="form-control w-1/4 flex flex-row place-items-center"
-							key={subType}
-						>
+					{superTypesQuery.data.data.map((supertype: string) => (
+						<div className="form-control w-1/4 flex flex-row place-items-center">
 							<input
 								type="checkbox"
-								name="subTypes"
-								id={subType}
+								name="superTypes"
+								id={supertype}
 								className="toggle toggle-primary mr-2"
 								checked={
-									searchParams.subTypes?.includes(
-										subType
+									searchParams.superTypes?.includes(
+										supertype
 									) || false
 								}
 								onChange={checkboxInputHandler}
 							/>
 							<label className="cursor-pointer label">
 								<span className="label-text">
-									{subType}
+									{supertype}
+								</span>
+							</label>
+							<div className="flex-grow"></div>
+						</div>
+					))}
+				</div>
+			</div>
+			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
+				<h6 className="text-xl w-2/12">Subtype</h6>
+				<div className="flex flex-wrap w-10/12">
+					{subTypesQuery.data.data.map((subtype: string) => (
+						<div
+							className="form-control w-1/4 flex flex-row place-items-center"
+							key={subtype}
+						>
+							<input
+								type="checkbox"
+								name="subtypes"
+								id={subtype}
+								className="toggle toggle-primary mr-2"
+								checked={
+									searchParams.subTypes?.includes(
+										subtype
+									) || false
+								}
+								onChange={checkboxInputHandler}
+							/>
+							<label className="cursor-pointer label">
+								<span className="label-text">
+									{subtype}
 								</span>
 							</label>
 							<div className="flex-grow"></div>
@@ -475,33 +430,6 @@ function advancedSearchPageClient() {
 							</div>
 						)
 					)}
-				</div>
-			</div>
-			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
-				<h6 className="text-xl w-2/12">Series</h6>
-				<div className="flex flex-wrap w-10/12">
-					{series.map((serie) => (
-						<div
-							className="form-control w-1/4 flex flex-row place-items-center"
-							key={serie}
-						>
-							<input
-								type="checkbox"
-								name="series"
-								id={serie}
-								className="toggle toggle-primary mr-2"
-								checked={
-									searchParams.series?.includes(serie) ||
-									false
-								}
-								onChange={checkboxInputHandler}
-							/>
-							<label className="cursor-pointer label">
-								<span className="label-text">{serie}</span>
-							</label>
-							<div className="flex-grow"></div>
-						</div>
-					))}
 				</div>
 			</div>
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
