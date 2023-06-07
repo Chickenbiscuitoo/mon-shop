@@ -243,7 +243,7 @@ function advancedSearchPageClient() {
 						>
 							<input
 								type="checkbox"
-								name="subtypes"
+								name="subTypes"
 								id={subtype}
 								className="toggle toggle-primary mr-2"
 								checked={
