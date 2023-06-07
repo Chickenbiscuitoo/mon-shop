@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useQuery, useQueries } from '@tanstack/react-query'
+import { useQueries } from '@tanstack/react-query'
 import Link from 'next/link'
 
 type SearchParams = {
