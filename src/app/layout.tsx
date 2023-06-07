@@ -1,6 +1,8 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 
+import ReactQueryProvider from '@/queryUtils/ReactQueryProvider'
+
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
@@ -8,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
 	title: 'monShop',
-	description: 'Pokemon card shop',
+	description: 'Pokemon card database',
 }
 
 export default function RootLayout({
@@ -18,13 +20,15 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
-				<Header />
-				<main className="min-h-screen flex place-content-center place-items-center">
-					{children}
-				</main>
-				<Footer />
-			</body>
+			<ReactQueryProvider>
+				<body className={inter.className}>
+					<Header />
+					<main className="min-h-screen flex place-content-center place-items-center">
+						{children}
+					</main>
+					<Footer />
+				</body>
+			</ReactQueryProvider>
 		</html>
 	)
 }
