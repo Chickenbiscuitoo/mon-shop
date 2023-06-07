@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 
 type SearchParams = {
@@ -33,6 +33,10 @@ type SearchParams = {
 	rarities?: string[]
 
 	[key: string]: any // Index signature allowing string keys
+}
+
+type QueryParams = {
+	[key: string]: string | undefined
 }
 
 function advancedSearchPage() {
@@ -171,6 +175,39 @@ function advancedSearchPage() {
 			},
 		})
 	}
+
+	function generateQueryParam(
+		key: string,
+		value: string | undefined
+	): QueryParams {
+		return value !== undefined && value !== '' ? { [key]: value } : {}
+	}
+
+	const queryParams: QueryParams = Object.entries({
+		name: searchParams.name,
+		types: searchParams.types?.join(','),
+		subTypes: searchParams.subTypes?.join(','),
+		superTypes: searchParams.superTypes?.join(','),
+		hpMin: searchParams.hp?.min,
+		hpMax: searchParams.hp?.max,
+		attacks: searchParams.attacks?.join(','),
+		weaknesses: searchParams.weaknesses?.join(','),
+		resistances: searchParams.resistances?.join(','),
+		retreatCostMin: searchParams.retreatCost?.min,
+		retreatCostMax: searchParams.retreatCost?.max,
+		sets: searchParams.sets?.join(','),
+		series: searchParams.series?.join(','),
+		legalitiesStandard: searchParams.legalities?.standard,
+		legalitiesExpanded: searchParams.legalities?.expanded,
+		legalitiesUnlimited: searchParams.legalities?.unlimited,
+		pokedexNumberMin: searchParams.pokedexNumber?.min,
+		pokedexNumberMax: searchParams.pokedexNumber?.max,
+		artist: searchParams.artist,
+		rarities: searchParams.rarities?.join(','),
+	}).reduce((acc, [key, value]) => {
+		const param = generateQueryParam(key, value)
+		return { ...acc, ...param }
+	}, {})
 
 	return (
 		<form
@@ -591,38 +628,7 @@ function advancedSearchPage() {
 			<Link
 				href={{
 					pathname: '/search/advanced/1',
-					query: {
-						name: searchParams.name || '',
-						types: searchParams.types?.join(',') || '',
-						subtypes: searchParams.subtypes?.join(',') || '',
-						supertypes:
-							searchParams.supertypes?.join(',') || '',
-						hpMin: searchParams.hp?.min || '',
-						hpMax: searchParams.hp?.max || '',
-						attacks: searchParams.attacks?.join(',') || '',
-						weaknesses:
-							searchParams.weaknesses?.join(',') || '',
-						resistances:
-							searchParams.resistances?.join(',') || '',
-						retreatCostMin:
-							searchParams.retreatCost?.min || '',
-						retreatCostMax:
-							searchParams.retreatCost?.max || '',
-						sets: searchParams.sets?.join(',') || '',
-						series: searchParams.series?.join(',') || '',
-						legalitiesStandard:
-							searchParams.legalities?.standard || '',
-						legalitiesExpanded:
-							searchParams.legalities?.expanded || '',
-						legalitiesUnlimited:
-							searchParams.legalities?.unlimited || '',
-						pokedexNumberMin:
-							searchParams.pokedexNumber?.min || '',
-						pokedexNumberMax:
-							searchParams.pokedexNumber?.max || '',
-						artist: searchParams.artist || '',
-						rarities: searchParams.rarities?.join(',') || '',
-					},
+					query: queryParams,
 				}}
 				className="w-full"
 			>
