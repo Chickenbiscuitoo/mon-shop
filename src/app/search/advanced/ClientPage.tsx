@@ -167,8 +167,8 @@ function advancedSearchPageClient() {
 	const queryParams: QueryParams = Object.entries({
 		name: searchParams.name,
 		types: searchParams.types?.join(','),
-		subTypes: searchParams.subTypes?.join(','),
-		superTypes: searchParams.superTypes?.join(','),
+		subtypes: searchParams.subTypes?.join(','),
+		supertypes: searchParams.superTypes?.join(','),
 		hpMin: searchParams.hp?.min,
 		hpMax: searchParams.hp?.max,
 		attacks: searchParams.attacks?.join(','),
