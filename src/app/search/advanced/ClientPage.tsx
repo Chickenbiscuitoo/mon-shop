@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueries } from '@tanstack/react-query'
 import Link from 'next/link'
 
 type SearchParams = {
@@ -40,49 +40,32 @@ type QueryParams = {
 	[key: string]: string | undefined
 }
 
+async function getSets() {
+	const res = await fetch('https://api.pokemontcg.io/v2/sets')
+	return res.json()
+}
+
+async function getTypes() {
+	const res = await fetch('https://api.pokemontcg.io/v2/types')
+	return res.json()
+}
+
+async function getSubTypes() {
+	const res = await fetch('https://api.pokemontcg.io/v2/subtypes')
+	return res.json()
+}
+
 async function getSuperTypes() {
 	const res = await fetch('https://api.pokemontcg.io/v2/supertypes')
 	return res.json()
 }
 
+async function getRarities() {
+	const res = await fetch('https://api.pokemontcg.io/v2/rarities')
+	return res.json()
+}
+
 function advancedSearchPageClient() {
-	const subTypes = ['Basic', 'Evolution', 'GX', 'LEGEND']
-	const types = [
-		'Colorless',
-		'Darkness',
-		'Dragon',
-		'Fairy',
-		'Fighting',
-		'Fire',
-		'Grass',
-		'Lightning',
-		'Metal',
-		'Psychic',
-		'Water',
-	]
-	const sets = [
-		'Base',
-		'Jungle',
-		'Fossil',
-		'Base2',
-		'Rocket',
-		'Gym',
-		'Neo',
-		'Expedition',
-		'Aquapolis',
-		'Skyridge',
-		'EX',
-		'POP',
-		'Diamond & Pearl',
-		'Platinum',
-		'HeartGold & SoulSilver',
-		'Call of Legends',
-		'Black & White',
-		'XY',
-		'Sun & Moon',
-		'Sword & Shield',
-		'Promo',
-	]
 	const series = [
 		'Shrek',
 		'Fiona',
@@ -95,38 +78,38 @@ function advancedSearchPageClient() {
 		'Pinocchio',
 		'King Harold',
 	]
-	const rarities = [
-		'Common',
-		'Uncommon',
-		'Rare',
-		'Rare Holo',
-		'Rare Holo EX',
-		'Rare Ultra',
-		'Rare Secret',
-		'Rare Rainbow',
-		'Rare Prism',
-		'Rare BREAK',
-		'Rare ACE',
-		'Rare Holo LV.X',
-		'Rare Shining',
-		'Rare Shining Holo',
-		'Rare Prime',
-		'Rare Holo Star',
-		'Rare Secret Holo',
-		'Rare Holo GX',
-		'Rare Holo V',
-		'Rare Holo VMAX',
-		'Rare ACE Spec',
-		'Rare BREAK Holo',
-		'Rare Prism Star',
-		'Rare Prism Star Holo',
-	]
 
 	const [searchParams, setSearchParams] = useState<SearchParams>({})
 
-	const { data, isLoading, isFetching, error } = useQuery({
-		queryKey: ['hydrate-supertypes'],
-		queryFn: () => getSuperTypes(),
+	const [
+		setsQuery,
+		typesQuery,
+		subTypesQuery,
+		superTypesQuery,
+		raritiesQuery,
+	] = useQueries({
+		queries: [
+			{
+				queryKey: ['hydrate-sets'],
+				queryFn: () => getSets(),
+			},
+			{
+				queryKey: ['hydrate-types'],
+				queryFn: () => getTypes(),
+			},
+			{
+				queryKey: ['hydrate-subtypes'],
+				queryFn: () => getSubTypes(),
+			},
+			{
+				queryKey: ['hydrate-supertypes'],
+				queryFn: () => getSuperTypes(),
+			},
+			{
+				queryKey: ['hydrate-rarities'],
+				queryFn: () => getRarities(),
+			},
+		],
 	})
 
 	function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
@@ -298,7 +281,7 @@ function advancedSearchPageClient() {
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
 				<h6 className="text-xl w-2/12">Subtypes</h6>
 				<div className="flex flex-col flex-wrap max-h-32 w-10/12">
-					{subTypes.map((subType) => (
+					{subTypesQuery.data.data.map((subType: string) => (
 						<div
 							className="form-control w-1/4 flex flex-row place-items-center"
 							key={subType}
@@ -328,7 +311,7 @@ function advancedSearchPageClient() {
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
 				<h6 className="text-xl w-2/12">Types</h6>
 				<div className="flex flex-wrap w-10/12">
-					{types.map((type) => (
+					{typesQuery.data.data.map((type: string) => (
 						<div
 							className="form-control w-1/4 flex flex-row place-items-center"
 							key={type}
@@ -382,7 +365,7 @@ function advancedSearchPageClient() {
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
 				<h6 className="text-xl w-2/12">Weakness</h6>
 				<div className="flex flex-wrap w-10/12">
-					{types.map((type) => (
+					{typesQuery.data.data.map((type: string) => (
 						<div
 							className="form-control w-1/4 flex flex-row place-items-center"
 							key={type}
@@ -410,7 +393,7 @@ function advancedSearchPageClient() {
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
 				<h6 className="text-xl w-2/12">Resistance</h6>
 				<div className="flex flex-wrap w-10/12">
-					{types.map((type) => (
+					{typesQuery.data.data.map((type: string) => (
 						<div
 							className="form-control w-1/4 flex flex-row place-items-center"
 							key={type}
@@ -465,28 +448,33 @@ function advancedSearchPageClient() {
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
 				<h6 className="text-xl w-2/12">Set</h6>
 				<div className="flex flex-wrap w-10/12">
-					{sets.map((set) => (
-						<div
-							className="form-control w-1/4 flex flex-row place-items-center"
-							key={set}
-						>
-							<input
-								type="checkbox"
-								name="sets"
-								id={set}
-								className="toggle toggle-primary mr-2"
-								checked={
-									searchParams.sets?.includes(set) ||
-									false
-								}
-								onChange={checkboxInputHandler}
-							/>
-							<label className="cursor-pointer label">
-								<span className="label-text">{set}</span>
-							</label>
-							<div className="flex-grow"></div>
-						</div>
-					))}
+					{setsQuery.data.data.map(
+						(set: { id: string; name: string }) => (
+							<div
+								className="form-control w-1/4 flex flex-row place-items-center"
+								key={set.id}
+							>
+								<input
+									type="checkbox"
+									name="sets"
+									id={set.name}
+									className="toggle toggle-primary mr-2"
+									checked={
+										searchParams.sets?.includes(
+											set.name
+										) || false
+									}
+									onChange={checkboxInputHandler}
+								/>
+								<label className="cursor-pointer label">
+									<span className="label-text">
+										{set.name}
+									</span>
+								</label>
+								<div className="flex-grow"></div>
+							</div>
+						)
+					)}
 				</div>
 			</div>
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
@@ -612,7 +600,7 @@ function advancedSearchPageClient() {
 			<div className="flex w-full place-content-start place-items-center gap-3 border-b-2 border-b-neutral-content py-3">
 				<h6 className="text-xl w-2/12">Rarity</h6>
 				<div className="flex flex-wrap w-10/12">
-					{rarities.map((rar) => (
+					{raritiesQuery.data.data.map((rar: string) => (
 						<div
 							className="form-control w-1/4 flex flex-row place-items-center"
 							key={rar}
