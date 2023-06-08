@@ -2,6 +2,7 @@ import Serie from '@/components/Serie'
 
 async function getSets() {
 	const res = await fetch('https://api.pokemontcg.io/v2/sets')
+
 	return res.json()
 }
 
