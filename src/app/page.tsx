@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import SearchBar from '@/components/SearchBar'
 import CardsDisplay from '@/components/CardsDisplay'
 
@@ -5,7 +7,7 @@ function Home() {
 	return (
 		<div className="flex flex-col min-h-screen">
 			<div className="flex flex-col flex-1 h-full place-items-center place-content-center">
-				<img
+				<Image
 					src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmM2NzFkMGZlZGM3N2IwZmQyZDQ4Yjc2OGE0YTc3NGRhMDY0MzZmZCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/n2ytlxNQLodGM/giphy.gif"
 					alt="snorlax"
 					width={250}
