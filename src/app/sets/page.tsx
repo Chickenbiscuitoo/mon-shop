@@ -28,6 +28,10 @@ async function setsPage() {
 					sets={getSetsForSerie(serie)}
 				/>
 			))}
+			<div className="shape-blob fixed -z-50 bg-primary"></div>
+			<div className="shape-blob one fixed -z-50 bg-primary"></div>
+			<div className="shape-blob two fixed -z-50 bg-primary"></div>
+			<div className="shape-blob three fixed -z-50 bg-primary"></div>
 		</div>
 	)
 }
