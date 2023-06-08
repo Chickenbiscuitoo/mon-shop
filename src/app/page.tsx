@@ -29,10 +29,66 @@ function Home() {
 			<div className="shape-blob one -z-50 bg-primary"></div>
 			<div className="shape-blob two -z-50 bg-primary"></div>
 
-			<div className="flex-grow-0 flex-shrink-0 flex place-items-center place-content-center overflow-hidden">
-				{/* @ts-expect-error Async Server Component */}
-				<CardsDisplay />
-			</div>
+			{(
+				<div className="flex-grow-0 flex-shrink-0 flex place-items-center place-content-center overflow-hidden">
+					{/* @ts-expect-error Async Server Component */}
+					<CardsDisplay />
+				</div>
+			) || (
+				<div className="flex-grow-0 flex-shrink-0 flex place-items-center place-content-center overflow-hidden">
+					<div className="flex place-items-center place-content-center h-full transform translate-y-1/2">
+						<div className="relative z-20 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
+							<div
+								className="bg-gray-200 animate-pulse rounded-lg"
+								style={{
+									width: '245px',
+									height: '342px',
+								}}
+							></div>
+						</div>
+
+						<div className="relative z-10 -ml-20 -mt-44 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
+							<div
+								className="bg-gray-200 animate-pulse rounded-lg"
+								style={{
+									width: '245px',
+									height: '342px',
+								}}
+							></div>
+						</div>
+
+						<div className="relative z-20 -ml-20 -mt-20 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
+							<div
+								className="bg-gray-200 animate-pulse rounded-lg"
+								style={{
+									width: '245px',
+									height: '342px',
+								}}
+							></div>
+						</div>
+
+						<div className="relative z-10 -ml-20 -mt-44 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
+							<div
+								className="bg-gray-200 animate-pulse rounded-lg"
+								style={{
+									width: '245px',
+									height: '342px',
+								}}
+							></div>
+						</div>
+
+						<div className="relative z-20 -ml-20 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
+							<div
+								className="bg-gray-200 animate-pulse rounded-lg"
+								style={{
+									width: '245px',
+									height: '342px',
+								}}
+							></div>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

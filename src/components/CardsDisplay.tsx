@@ -20,7 +20,10 @@ async function CardsDisplay() {
 				<div className="relative z-20 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
 					<img
 						className="drop-shadow-xl"
-						src={cards.data[0].images.small}
+						src={
+							cards.data[0].images.small ||
+							'https://via.placeholder.com/245x342'
+						}
 						alt="Image 1"
 						width={240}
 					/>
@@ -30,7 +33,10 @@ async function CardsDisplay() {
 				<div className="relative z-10 -ml-20 -mt-44 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
 					<img
 						className="drop-shadow-xl"
-						src={cards.data[1].images.small}
+						src={
+							cards.data[1].images.small ||
+							'https://via.placeholder.com/245x342'
+						}
 						alt="Image 2"
 						width={240}
 					/>
@@ -40,7 +46,10 @@ async function CardsDisplay() {
 				<div className="relative z-20 -ml-20 -mt-20 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
 					<img
 						className="drop-shadow-xl"
-						src={cards.data[2].images.small}
+						src={
+							cards.data[2].images.small ||
+							'https://via.placeholder.com/245x342'
+						}
 						alt="Image 3"
 						width={240}
 					/>
@@ -50,7 +59,10 @@ async function CardsDisplay() {
 				<div className="relative z-10 -ml-20 -mt-44 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
 					<img
 						className="drop-shadow-xl"
-						src={cards.data[3].images.small}
+						src={
+							cards.data[3].images.small ||
+							'https://via.placeholder.com/245x342'
+						}
 						alt="Image 4"
 						width={240}
 					/>
@@ -60,7 +72,10 @@ async function CardsDisplay() {
 				<Link href={`/card/${cards.data[4].id}`}>
 					<img
 						className="drop-shadow-xl"
-						src={cards.data[4].images.small}
+						src={
+							cards.data[4].images.small ||
+							'https://via.placeholder.com/245x342'
+						}
 						alt="Image 5"
 						width={240}
 					/>
