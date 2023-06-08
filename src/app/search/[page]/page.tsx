@@ -41,7 +41,7 @@ async function SearchPage({
 }: Params) {
 	const cards = await getSearched(Number(page), 60, name, rarity)
 
-	if (cards?.count < 1) {
+	if (!cards || cards?.count < 1) {
 		return (
 			<div className="flex flex-col place-content-center place-items-center place-self-center w-full gap-2 m-2">
 				<div className={silkscreen.className}>
@@ -67,7 +67,7 @@ async function SearchPage({
 	return (
 		<div className="flex flex-col">
 			<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 p-10">
-				{cards.data.map((card: any) => (
+				{cards?.data?.map((card: any) => (
 					<div
 						key={card.id}
 						className="hover:cursor-pointer hover:scale-110 duration-300"

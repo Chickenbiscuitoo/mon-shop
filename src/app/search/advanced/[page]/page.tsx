@@ -72,7 +72,7 @@ async function SearchPage({
 }: Params) {
 	const cards = await getSearched(Number(page), 60, name)
 
-	if (cards?.count < 1) {
+	if (!cards || cards?.count < 1) {
 		return (
 			<div className="flex flex-col place-content-center place-items-center place-self-center w-full gap-2 m-2">
 				<div className={silkscreen.className}>

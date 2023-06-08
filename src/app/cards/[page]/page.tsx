@@ -22,7 +22,7 @@ async function getCards(page: number = 1, pageSize: number = 250) {
 async function CardsPage({ params: { page } }: Params) {
 	const cards = await getCards(Number(page), 60)
 
-	if (cards?.count < 1) {
+	if (!cards || cards?.count < 1) {
 		return (
 			<div className="flex flex-col place-content-center place-items-center place-self-center w-full gap-2 m-2">
 				<div className={silkscreen.className}>
