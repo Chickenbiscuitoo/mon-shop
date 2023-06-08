@@ -1,22 +1,96 @@
-import { Silkscreen } from 'next/font/google'
-
-const silkscreen = Silkscreen({ subsets: ['latin'], weight: '400' })
-
 function LoadingPage() {
 	return (
-		<div className="flex flex-col place-content-center place-items-center place-self-center w-full gap-2 m-2">
-			<div className={silkscreen.className}>
-				<h1 className="text-2xl font-bold text-[#f7e901]">
-					Loading...
-				</h1>
+		<div className="flex flex-col min-h-screen">
+			<div className="flex flex-col flex-1 h-full place-items-center place-content-center">
+				<img
+					src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmM2NzFkMGZlZGM3N2IwZmQyZDQ4Yjc2OGE0YTc3NGRhMDY0MzZmZCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/n2ytlxNQLodGM/giphy.gif"
+					alt="snorlax"
+					width={250}
+					height={250}
+					className="mb-5"
+				/>
+				<span
+					className="self-center text-7xl font-extrabold whitespace-nowrap bg-gradient-to-r bg-clip-text text-transparent 
+            from-[#4070b8] via-primary to-[#285880]
+            animate-text"
+				>
+					monShop
+				</span>
+				<p className="text-xl mb-10">
+					The Ultimate Pokémon Card Database
+				</p>
+
+				<form className="join flex border-collapse">
+					<input
+						className="input join-item border-neutral border-collapse border-2 rounded-l-3xl rounded-r-none"
+						placeholder="Search..."
+					/>
+					<button
+						type="submit"
+						className="btn join-item rounded-r-3xl rounded-l-none border-collapse"
+					>
+						Search
+					</button>
+				</form>
 			</div>
 
-			<img
-				src="https://media2.giphy.com/media/x83yCwqh9fnK8/giphy.gif?cid=ecf05e47bqr5grn30majfe7am99lbajtmwohsbj9urqkruhm&ep=v1_stickers_search&rid=giphy.gif&ct=s"
-				alt="picachu"
-				width="300"
-				height="300"
-			/>
+			<div className="shape-blob -z-50 bg-primary"></div>
+			<div className="shape-blob one -z-50 bg-primary"></div>
+			<div className="shape-blob two -z-50 bg-primary"></div>
+
+			<div className="flex-grow-0 flex-shrink-0 flex place-items-center place-content-center overflow-hidden">
+				<div className="flex place-items-center place-content-center h-full transform translate-y-1/2">
+					<div className="relative z-20 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
+						<div
+							className="bg-gray-200 animate-pulse rounded-lg"
+							style={{
+								width: '245px',
+								height: '342px',
+							}}
+						></div>
+					</div>
+
+					<div className="relative z-10 -ml-20 -mt-44 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
+						<div
+							className="bg-gray-200 animate-pulse rounded-lg"
+							style={{
+								width: '245px',
+								height: '342px',
+							}}
+						></div>
+					</div>
+
+					<div className="relative z-20 -ml-20 -mt-20 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
+						<div
+							className="bg-gray-200 animate-pulse rounded-lg"
+							style={{
+								width: '245px',
+								height: '342px',
+							}}
+						></div>
+					</div>
+
+					<div className="relative z-10 -ml-20 -mt-44 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
+						<div
+							className="bg-gray-200 animate-pulse rounded-lg"
+							style={{
+								width: '245px',
+								height: '342px',
+							}}
+						></div>
+					</div>
+
+					<div className="relative z-20 -ml-20 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
+						<div
+							className="bg-gray-200 animate-pulse rounded-lg"
+							style={{
+								width: '245px',
+								height: '342px',
+							}}
+						></div>
+					</div>
+				</div>
+			</div>
 		</div>
 	)
 }
