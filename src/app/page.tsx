@@ -13,6 +13,7 @@ function Home() {
 					width={250}
 					height={250}
 					className="mb-5"
+					priority={true}
 				/>
 				<span
 					className="self-center text-7xl font-extrabold whitespace-nowrap bg-gradient-to-r bg-clip-text text-transparent 

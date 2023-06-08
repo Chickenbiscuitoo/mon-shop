@@ -17,17 +17,15 @@ async function CardsDisplay() {
 
 	return (
 		<div className="flex place-items-center place-content-center h-full transform translate-y-1/2">
-			<Link href={`/card/${cards.data[0].id}`} className="">
+			<Link href={`/card/${cards.data[0].id}`}>
 				<div className="relative z-20 object-contain transition duration-300 ease-in-out transform hover:-translate-y-2">
 					<Image
 						className="drop-shadow-xl"
 						alt="Pokemon Image 1"
-						src={
-							cards.data[0].images.small ||
-							'https://via.placeholder.com/245x342'
-						}
+						src={cards.data[0].images.small}
 						width={245}
 						height={342}
+						priority={true}
 					/>
 				</div>
 			</Link>
@@ -36,12 +34,10 @@ async function CardsDisplay() {
 					<Image
 						className="drop-shadow-xl"
 						alt="Pokemon Image 2"
-						src={
-							cards.data[1].images.small ||
-							'https://via.placeholder.com/245x342'
-						}
+						src={cards.data[1].images.small}
 						width={245}
 						height={342}
+						priority={true}
 					/>
 				</div>
 			</Link>
@@ -50,12 +46,10 @@ async function CardsDisplay() {
 					<Image
 						className="drop-shadow-xl"
 						alt="Pokemon Image 3"
-						src={
-							cards.data[2].images.small ||
-							'https://via.placeholder.com/245x342'
-						}
+						src={cards.data[2].images.small}
 						width={245}
 						height={342}
+						priority={true}
 					/>
 				</div>
 			</Link>
@@ -64,12 +58,10 @@ async function CardsDisplay() {
 					<Image
 						className="drop-shadow-xl"
 						alt="Pokemon Image 4"
-						src={
-							cards.data[3].images.small ||
-							'https://via.placeholder.com/245x342'
-						}
+						src={cards.data[3].images.small}
 						width={245}
 						height={342}
+						priority={true}
 					/>
 				</div>
 			</Link>
@@ -78,12 +70,10 @@ async function CardsDisplay() {
 					<Image
 						className="drop-shadow-xl"
 						alt="Pokemon Image 5"
-						src={
-							cards.data[4].images.small ||
-							'https://via.placeholder.com/245x342'
-						}
+						src={cards.data[4].images.small}
 						width={245}
 						height={342}
+						priority={true}
 					/>
 				</Link>
 			</div>
