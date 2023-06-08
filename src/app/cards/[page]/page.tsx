@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 import { Silkscreen } from 'next/font/google'
 
@@ -30,11 +31,12 @@ async function CardsPage({ params: { page } }: Params) {
 						No more cards to show
 					</h1>
 				</div>
-				<img
+				<Image
 					src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmM2NzFkMGZlZGM3N2IwZmQyZDQ4Yjc2OGE0YTc3NGRhMDY0MzZmZCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/n2ytlxNQLodGM/giphy.gif"
 					alt="snorlax"
-					width="300"
-					height="300"
+					width={300}
+					height={300}
+					priority={true}
 				/>
 
 				<div className="shape-blob fixed -z-50 bg-primary"></div>
@@ -54,7 +56,13 @@ async function CardsPage({ params: { page } }: Params) {
 						className="hover:cursor-pointer hover:scale-110 duration-300"
 					>
 						<Link href={`/card/${card.id}`}>
-							<img src={card.images.small} alt={card.name} />
+							<Image
+								src={card.images.small}
+								alt={card.name}
+								width={245}
+								height={342}
+								priority={true}
+							/>
 						</Link>
 					</div>
 				))}

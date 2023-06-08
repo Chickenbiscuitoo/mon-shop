@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 type Params = {
 	params: {
@@ -24,7 +25,13 @@ async function SetPage({ params: { setId } }: Params) {
 					className="hover:cursor-pointer hover:scale-110 duration-300"
 				>
 					<Link href={`/card/${card.id}`}>
-						<img src={card.images.small} alt={card.name} />
+						<Image
+							src={card.images.small}
+							alt={card.name}
+							width={245}
+							height={342}
+							priority={true}
+						/>
 					</Link>
 				</div>
 			))}

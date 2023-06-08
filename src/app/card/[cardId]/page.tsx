@@ -1,6 +1,7 @@
 import type { PokemonCard } from '../../../../types/monCard'
 
 import Link from 'next/link'
+import Image from 'next/image'
 
 type Params = {
 	params: {
@@ -39,7 +40,13 @@ async function CardPage({ params: { cardId } }: Params) {
 	return (
 		<div className="flex p-14 gap-14">
 			<div className="w-1/3">
-				<img src={card?.images?.large} alt={card?.name} />
+				<Image
+					src={card?.images?.large}
+					alt={card?.name}
+					width={500}
+					height={625}
+					priority={true}
+				/>
 			</div>
 			<div className="w-2/3">
 				<div className="flex flex-row border-b-2 border-b-base-content">
@@ -57,12 +64,13 @@ async function CardPage({ params: { cardId } }: Params) {
 								<h4 className="inline text-lg font-semibold">
 									{card?.set?.name.toUpperCase()}
 								</h4>
-								<img
+								<Image
 									src={card?.set?.images?.symbol}
 									alt={card?.set?.name}
-									width="25"
-									height="25"
+									width={25}
+									height={25}
 									className="inline w-[25px] h-[25px]"
+									priority={true}
 								/>
 							</Link>
 						</div>
