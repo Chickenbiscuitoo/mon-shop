@@ -25,6 +25,10 @@ function Home() {
 				<SearchBar />
 			</div>
 
+			<div className="shape-blob -z-50 bg-primary"></div>
+			<div className="shape-blob one -z-50 bg-primary"></div>
+			<div className="shape-blob two -z-50 bg-primary"></div>
+
 			<div className="flex-grow-0 flex-shrink-0 flex place-items-center place-content-center overflow-hidden">
 				{/* @ts-expect-error Async Server Component */}
 				<CardsDisplay />
