@@ -25,6 +25,7 @@ type Prices = {
 
 async function getCard(cardId: string) {
 	const res = await fetch(`https://api.pokemontcg.io/v2/cards/${cardId}`)
+
 	return res.json()
 }
 
