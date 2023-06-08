@@ -65,7 +65,7 @@ async function getRarities() {
 	return res.json()
 }
 
-function advancedSearchPageClient() {
+function AdvancedSearchPageClient() {
 	const [searchParams, setSearchParams] = useState<SearchParams>({})
 
 	const [
@@ -210,7 +210,10 @@ function advancedSearchPageClient() {
 				<h6 className="text-xl w-2/12">Supertype</h6>
 				<div className="flex flex-col w-10/12">
 					{superTypesQuery.data.data.map((supertype: string) => (
-						<div className="form-control w-1/4 flex flex-row place-items-center">
+						<div
+							className="form-control w-1/4 flex flex-row place-items-center"
+							key={supertype}
+						>
 							<input
 								type="checkbox"
 								name="superTypes"
@@ -570,4 +573,4 @@ function advancedSearchPageClient() {
 	)
 }
 
-export default advancedSearchPageClient
+export default AdvancedSearchPageClient

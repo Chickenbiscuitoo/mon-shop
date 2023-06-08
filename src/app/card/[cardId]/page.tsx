@@ -272,7 +272,7 @@ async function CardPage({ params: { cardId } }: Params) {
 				{card?.flavorText && (
 					<div className="mt-10">
 						<p className="italic font-bold">
-							"{card?.flavorText}"
+							{`"${card?.flavorText}"`}
 						</p>
 					</div>
 				)}
